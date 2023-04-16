@@ -25,6 +25,20 @@ namespace Full_GRASP_And_SOLID.Library
             this.steps.Remove(step);
         }
 
+
+        public double GetProductionCost()
+        {
+            double ins_cost  = 0;  // costo de los insumos
+            double equip_cost = 0; // costo de los equipos
+            
+            foreach (Step step in this.steps)
+            {
+                ins_cost += step.Quantity;
+                equip_cost += step.Time * step.Equipment.HourlyCost;
+            }
+
+            return ins_cost + equip_cost; 
+        }
         public void PrintRecipe()
         {
             Console.WriteLine($"Receta de {this.FinalProduct.Description}:");
@@ -33,6 +47,9 @@ namespace Full_GRASP_And_SOLID.Library
                 Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' " +
                     $"usando '{step.Equipment.Description}' durante {step.Time}");
             }
+
         }
     }
 }
+
+// Utilicé el patron EXPERT y el principio SRP
